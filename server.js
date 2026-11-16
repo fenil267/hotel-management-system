@@ -719,6 +719,16 @@ app.delete('/api/bookings/:id', async (req, res) => {
   }
 });
 
+// Get all Payments (Direct Table Read for Live DB Preview)
+app.get('/api/payments', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT payment_id, booking_id, amount_paid, payment_method, payment_date FROM Payments ORDER BY payment_id DESC');
+    res.json({ success: true, data: rows });
+  } catch (err) {
+    res.status(500).json({ success: false, error: formatDbError(err) });
+  }
+});
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`=======================================================`);
