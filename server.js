@@ -731,9 +731,13 @@ app.get('/api/payments', async (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(`🏨 Hotel Management System Server listening on port ${PORT}`);
-  console.log(`👉 Open http://localhost:${PORT} in your browser`);
-  console.log(`=======================================================`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`=======================================================`);
+    console.log(`🏨 Hotel Management System Server listening on port ${PORT}`);
+    console.log(`👉 Open http://localhost:${PORT} in your browser`);
+    console.log(`=======================================================`);
+  });
+}
+
+module.exports = app;
