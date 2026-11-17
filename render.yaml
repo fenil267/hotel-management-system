@@ -1,0 +1,29 @@
+# Render Blueprint Specification (Infrastructure as Code)
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: hotel-management-system
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 18.20.0
+      - key: PORT
+        value: 10000
+      # You can supply either a full connection URL or individual DB variables:
+      - key: MYSQL_URL
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: hotel_db
+      - key: DB_PORT
+        value: 3306
