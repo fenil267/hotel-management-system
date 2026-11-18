@@ -72,6 +72,7 @@ CREATE TABLE Payments (
 -- --------------------------------------------------------
 DELIMITER $$
 
+
 -- Trigger 1: On Booking Insert
 -- If booking is directly Checked_In (or Confirmed for today), mark room Occupied.
 -- Future reservations leave the room available for current operations.

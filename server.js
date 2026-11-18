@@ -737,6 +737,24 @@ if (require.main === module) {
     console.log(`🏨 Hotel Management System Server listening on port ${PORT}`);
     console.log(`👉 Open http://localhost:${PORT} in your browser`);
     console.log(`=======================================================`);
+
+    // Auto-launch MySQL Workbench on startup (Local Windows environment)
+    if (process.env.NODE_ENV !== 'production' && process.platform === 'win32') {
+      const fs = require('fs');
+      const { exec } = require('child_process');
+      const workbenchPath = 'C:\\Program Files\\MySQL\\MySQL Workbench 8.0\\MySQLWorkbench.exe';
+      if (fs.existsSync(workbenchPath)) {
+        exec('tasklist /FI "IMAGENAME eq MySQLWorkbench.exe"', (err, stdout) => {
+          if (!err && stdout && !stdout.includes('MySQLWorkbench.exe')) {
+            exec(`start "" "${workbenchPath}"`, (launchErr) => {
+              if (!launchErr) {
+                console.log(`🐬 MySQL Workbench launched automatically (Default Schema: hotel_db)`);
+              }
+            });
+          }
+        });
+      }
+    }
   });
 }
 
